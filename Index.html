@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Rahi Inn - Luxury Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #d4af37;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background-color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Loader Styles */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-logo {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .loader-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .loader-text {
+            font-size: 1.2rem;
+            color: #d4af37;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .loader-progress {
+            width: 300px;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loader-progress-bar {
+            height: 100%;
+            background-color: #d4af37;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Animation classes */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .rotate {
+            animation: rotate 3s linear infinite;
+        }
+
+        .bounce {
+            animation: bounce 2s ease infinite;
+        }
+
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
+            }
+            to {
+                filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8));
+            }
+        }
+
+        /* Header Styles */
+        header {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 40%;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo-text span {
+            color: #d4af37;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 30px;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #d4af37;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #d4af37;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        .hero-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-slideshow .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .hero-slideshow .slide.active {
+            opacity: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s forwards 0.5s;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s forwards 0.8s;
+        }
+
+        .hero .btn {
+            opacity: 0;
+            animation: fadeInUp 1s forwards 1.1s;
+        }
+
+        /* About Section */
+        .about {
+            background-color: #111;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 1s ease;
+        }
+
+        .about-image.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: all 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Rooms Section */
+        .rooms {
+            background-color: #000;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #d4af37;
+        }
+
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .room-card {
+            background-color: #111;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .room-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .room-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .room-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .room-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .room-card:hover .room-image img {
+            transform: scale(1.1);
+        }
+
+        .room-content {
+            padding: 25px;
+        }
+
+        .room-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .room-price {
+            color: #d4af37;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .room-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .room-features li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .room-features i {
+            color: #d4af37;
+            margin-right: 10px;
+        }
+
+        /* Amenities Section */
+        .amenities {
+            background-color: #111;
+        }
+
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .amenity-card {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 10px;
+            background-color: #000;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .amenity-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .amenity-card:hover {
+            background-color: #1a1a1a;
+            transform: translateY(-10px);
+        }
+
+        .amenity-card:hover .amenity-icon {
+            color: #d4af37;
+        }
+
+        .amenity-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .amenity-card h3 {
+            font-size: 1.3rem;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background-color: #000;
+            padding: 50px 0;
+        }
+
+        .gallery-carousel {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding-bottom: 10px;
+        }
+
+        .gallery-carousel::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .gallery-carousel::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 10px;
+        }
+
+        .gallery-item {
+            flex: 0 0 auto;
+            width: 300px;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Enhanced Nearby Treasures Section */
+        .nearby {
+            background: #111;
+            color: #fff;
+            padding: 60px 20px;
+        }
+
+        .nearby .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #d4af37;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nearby-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .nearby-card {
+            background: linear-gradient(135deg, #222, #333);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .nearby-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .nearby-card-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .nearby-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .nearby-card:hover .nearby-card-image img {
+            transform: scale(1.1);
+        }
+
+        .nearby-card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+        }
+
+        .nearby-card-distance {
+            background-color: #d4af37;
+            color: #000;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .nearby-card-content {
+            padding: 20px;
+        }
+
+        .nearby-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .nearby-card-description {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .nearby-card-features {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nearby-card-feature {
+            background-color: rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        /* Contact Section */
+        .contact {
+            background-color: #111;
+        }
+
+        .contact-container {
+            display: flex;
+            gap: 50px;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-form {
+            flex: 1;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .info-icon {
+            font-size: 1.5rem;
+            color: #d4af37;
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: #000;
+            border: 1px solid #333;
+            border-radius: 4px;
+            font-size: 1rem;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #d4af37;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #000;
+            padding: 60px 0 30px;
+            border-top: 1px solid #333;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #d4af37;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #d4af37;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #111;
+            border-radius: 50%;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: #d4af37;
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+
+            .contact-container {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                background-color: #000;
+                width: 80%;
+                height: calc(100vh - 70px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 50px;
+                transition: all 0.3s ease;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .nav-menu li {
+                margin: 0 0 30px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .loader-logo {
+                width: 150px;
+                height: 150px;
+            }
+
+            .loader-progress {
+                width: 250px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            section {
+                padding: 60px 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .loader-logo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .loader-progress {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loader -->
+    <div id="loader">
+        <div class="loader-logo pulse">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200">
+                <defs>
+                    <linearGradient id="linear-gradient" x1="93.2" y1="610.19" x2="1117.82" y2="610.19" gradientTransform="translate(0 1202) scale(1 -1)" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#f7de7b"/>
+                        <stop offset=".1" stop-color="#dbb85b"/>
+                        <stop offset=".2" stop-color="#c59942"/>
+                        <stop offset=".28" stop-color="#b78632"/>
+                        <stop offset=".34" stop-color="#b27f2c"/>
+                        <stop offset=".37" stop-color="#ba8a35"/>
+                        <stop offset=".45" stop-color="#d0a84e"/>
+                        <stop offset=".53" stop-color="#e1c062"/>
+                        <stop offset=".62" stop-color="#edd170"/>
+                        <stop offset=".72" stop-color="#f5db78"/>
+                        <stop offset=".84" stop-color="#f7de7b"/>
+                        <stop offset=".87" stop-color="#f4da77"/>
+                        <stop offset=".91" stop-color="#ebcd6d"/>
+                        <stop offset=".94" stop-color="#dbb85b"/>
+                        <stop offset=".97" stop-color="#c69b43"/>
+                        <stop offset="1" stop-color="#b27f2c"/>
+                    </linearGradient>
+                    <linearGradient id="linear-gradient1" x1="434.4" y1="618.68" x2="802.12" y2="618.68" xlink:href="#linear-gradient"/>
+                </defs>
+                <path class="st1" fill="url(#linear-gradient)" d="M499.99,267.14c20.23-6.57,36.85-19.15,48.43-35.18,0,0-50.05,8.13-70.18-33.81,9.46-19.11,10.17-42.23-.17-62.74-6.96-13.81-17.85-24.35-30.69-30.86-6.59,12.77-9.37,27.67-7.03,42.96,3.51,22.84,17.74,41.38,36.74,51.4,8.05,45.52-36.98,68.23-36.98,68.23,18.82,6.16,39.64,6.57,59.88,0ZM355.88,179.29c5.38-3.93,6.59-11.45,2.67-16.85-3.93-5.38-11.45-6.59-16.85-2.67-5.38,3.93-6.59,11.45-2.67,16.85,3.93,5.4,11.45,6.59,16.85,2.67ZM290.3,226.93c5.4-3.93,6.59-11.45,2.67-16.85s-11.45-6.59-16.85-2.67-6.59,11.45-2.67,16.85c3.93,5.4,11.45,6.59,16.85,2.67ZM418.47,147.41c6.33-2.06,9.8-8.87,7.74-15.2s-8.87-9.8-15.2-7.74c-6.33,2.06-9.8,8.87-7.74,15.2s8.87,9.78,15.2,7.74ZM424.93,260.61c4.88,2.56,9.91,4.84,15.16,6.55v-.04s.02.02.04.02c4.53-13.9,5.83-28.71,3.84-43.29-2.08-15.42-7.85-30.58-17.63-44.05-12.58-17.33-29.82-29.3-48.77-35.35h0c-6.27,18.91-6.7,39.88-.09,60.25,8.15,25.16,25.72,44.57,47.45,55.91ZM564.97,111.36c6.66,0,12.06-5.4,12.06-12.06s-5.4-12.06-12.06-12.06-12.06,5.4-12.06,12.06,5.4,12.06,12.06,12.06ZM112.98,563.37c6.66,0,12.06-5.4,12.06-12.06s-5.4-12.06-12.06-12.06-12.06,5.4-12.06,12.06,5.38,12.06,12.06,12.06ZM495.57,122.33c6.33-2.06,9.8-8.87,7.74-15.2-2.06-6.33-8.87-9.8-15.2-7.74-6.33,2.06-9.8,8.87-7.74,15.2,2.06,6.35,8.87,9.8,15.2,7.74ZM646.04,111.36c6.66,0,12.06-5.4,12.06-12.06s-5.4-12.06-12.06-12.06-12.06,5.4-12.06,12.06,5.4,12.06,12.06,12.06ZM548.51,231.94l.02-.02s.02.02.04.02c8.52-11.71,14.34-25.24,16.98-39.56,2.88-15.44,2.08-31.77-3.12-47.78-6.61-20.36-19.3-37.09-35.48-48.69h0c-11.8,16.05-18.69,35.85-18.69,57.28,0,26.46,10.71,50.36,27.87,67.84,3.84,3.93,7.92,7.66,12.38,10.91ZM440.03,267.21s-45.09,23.21-77.21-10.48c3.1-21.08-3.38-43.31-19.54-59.62-10.89-10.97-24.51-17.65-38.71-19.87-2.32,14.18-.37,29.21,6.59,43.03,10.39,20.62,29.65,33.88,50.81,37.54,21.71,40.82-14.08,76.32-14.08,76.32,19.78.04,39.73-6.01,56.93-18.5,17.22-12.51,29.13-29.6,35.2-48.43ZM145.88,412.56c6.33,2.06,13.14-1.41,15.2-7.74,2.06-6.33-1.41-13.14-7.74-15.2s-13.14,1.41-15.2,7.74c-2.06,6.33,1.41,13.14,7.74,15.2ZM193.48,412.66c21.36,15.53,46.95,20.91,71.13,17.35,5.49-.8,10.93-1.91,16.22-3.62t-.02-.04s.02,0,.04-.02c-4.47-13.77-12.04-26.42-22.06-36.98-10.8-11.39-24.44-20.39-40.43-25.57-20.36-6.61-41.34-6.18-60.25.09h0c6.05,19,18.02,36.22,35.35,48.8ZM280.82,486.34c6.57-20.23,6.16-41.08,0-59.86,0,0-22.84,45.28-68.62,36.91-9.89-18.89-28.19-33.05-50.86-36.74-15.27-2.49-30.19.13-43.01,6.68,6.44,12.84,16.87,23.86,30.62,30.95,20.54,10.58,43.92,9.98,63.18.5,41.55,20.26,33.46,70.01,33.46,70.01,16.07-11.6,28.65-28.22,35.22-48.45ZM158.29,548.77c25.55,8.31,52.07,5.42,74.19-5.92,4.58-2.32,8.98-4.99,13.12-8.02l-.02-.02s.02-.02.04-.02c-8.48-11.71-19.56-21.36-32.34-28.3-13.79-7.53-29.58-11.86-46.43-11.86-21.41,0-41.23,6.9-57.28,18.69h0c11.62,16.16,28.35,28.84,48.71,35.46ZM120.83,489.65c6.33,2.06,13.14-1.41,15.2-7.74,2.06-6.33-1.41-13.14-7.74-15.2s-13.14,1.41-15.2,7.74c-2.06,6.33,1.39,13.14,7.74,15.2ZM331.26,332.59c5.49.93,11.02,1.58,16.59,1.56v-.04h.04c0-14.44-3.27-28.76-9.5-41.86-6.74-14.23-16.96-27.02-30.6-36.93-17.33-12.58-37.41-18.65-57.32-18.54h0c-.11,19.91,5.96,39.99,18.54,57.32,15.51,21.36,38.15,34.4,62.24,38.5ZM329.31,391.15c12.51-17.22,18.56-37.15,18.5-56.93,0,0-35.7,36-76.66,13.9-3.58-21.02-16.59-40.14-37.02-50.66-13.75-7.07-28.76-9.22-42.96-6.94,2.17,14.21,8.7,27.89,19.56,38.89,16.27,16.42,38.67,23.05,59.94,20,33.27,32.1,10.19,76.93,10.19,76.93,18.85-6.03,35.94-17.96,48.45-35.18ZM223.76,279.29c5.4,3.93,12.93,2.71,16.85-2.67,3.93-5.4,2.71-12.93-2.67-16.85-5.4-3.93-12.93-2.71-16.85,2.67-3.9,5.4-2.71,12.95,2.67,16.85ZM176.11,344.87c5.4,3.93,12.93,2.71,16.85-2.67s2.71-12.93-2.67-16.85c-5.4-3.93-12.93-2.71-16.85,2.67-3.9,5.4-2.71,12.95,2.67,16.85ZM662.43,231.92s-50.12-7.72-56.3-53.85c14.9-15.25,22.73-37.02,19.24-59.73-2.36-15.29-9.46-28.67-19.65-38.84-10.21,10.11-17.46,23.42-19.95,38.69-3.73,22.79,4.08,44.85,19.04,60.25-6.42,45.78-56.24,53.46-56.24,53.46,15.98,11.67,35.65,18.5,56.93,18.5,21.28.02,40.97-6.81,56.93-18.48ZM654.52,218.84c2.32,4.55,4.97,8.94,7.98,13.08l.02-.02s.02.02.02.04c11.8-8.57,21.54-19.76,28.5-32.66,7.42-13.73,11.69-29.41,11.69-46.11,0-21.41-6.9-41.23-18.69-57.28h0c-16.18,11.6-28.87,28.32-35.48,48.69-8.28,25.57-5.4,52.11,5.96,74.26ZM930.18,486.31c6.57,20.23,19.15,36.85,35.18,48.43,0,0-8.13-50.05,33.81-70.18,19.11,9.46,42.23,10.17,62.74-.17,13.81-6.96,24.35-17.85,30.86-30.69-12.77-6.59-27.67-9.37-42.96-7.03-22.84,3.51-41.38,17.74-51.4,36.74-45.52,8.05-68.23-36.98-68.23-36.98-6.16,18.8-6.57,39.64,0,59.88ZM1049.94,404.79c2.06,6.33,8.87,9.8,15.2,7.74s9.8-8.87,7.74-15.2c-2.06-6.33-8.87-9.8-15.2-7.74-6.33,2.06-9.8,8.87-7.74,15.2ZM1018.04,342.2c3.93,5.4,11.45,6.59,16.85,2.67,5.4-3.93,6.59-11.45,2.67-16.85-3.93-5.38-11.45-6.59-16.85-2.67-5.4,3.9-6.59,11.45-2.67,16.85ZM1085.99,551.29c0,6.66,5.4,12.06,12.06,12.06s12.06-5.4,12.06-12.06-5.4-12.06-12.06-12.06-12.06,5.38-12.06,12.06ZM987.24,279.29c5.4-3.93,6.59-11.45,2.67-16.85-3.93-5.38-11.45-6.59-16.85-2.67-5.38,3.93-6.59,11.45-2.67,16.85,3.9,5.38,11.45,6.57,16.85,2.67ZM965.4,648.75s7.72-50.12,53.85-56.3c15.25,14.9,37.02,22.73,59.73,19.24,15.29-2.36,28.67-9.46,38.84-19.65-10.11-10.21-23.42-17.46-38.69-19.95-22.79-3.73-44.85,4.08-60.25,19.04-45.78-6.42-53.46-56.24-53.46-56.24-11.67,15.98-18.5,35.65-18.5,56.93-.02,21.28,6.81,40.95,18.48,56.93ZM1082.73,466.69c-6.33,2.06-9.8,8.87-7.74,15.2,2.06,6.33,8.87,9.8,15.2,7.74s9.8-8.87,7.74-15.2c-2.06-6.33-8.87-9.8-15.2-7.74ZM1044.15,494.58c-26.39,0-50.27,10.67-67.75,27.76-3.97,3.88-7.74,7.98-11,12.47l.02.02s-.02.02-.02.04c11.69,8.5,25.18,14.31,39.45,16.96,15.46,2.91,31.84,2.1,47.86-3.1,20.36-6.61,37.09-19.3,48.69-35.48h0c-16.03-11.78-35.85-18.67-57.25-18.67ZM992.62,363.78c-25.11,8.15-44.52,25.7-55.87,47.39-2.58,4.9-4.88,9.95-6.59,15.22h.04s-.02.02-.02.04c13.75,4.47,28.39,5.77,42.81,3.88,15.59-2.02,30.9-7.79,44.52-17.68,17.33-12.58,29.3-29.82,35.35-48.78h0c-18.91-6.27-39.88-6.7-60.25-.09ZM715.41,122.33c6.33,2.06,13.14-1.41,15.2-7.74,2.06-6.33-1.41-13.14-7.74-15.2-6.33-2.06-13.14,1.41-15.2,7.74-2.06,6.33,1.41,13.14,7.74,15.2ZM784.66,179.81c-15.53,21.36-20.91,46.95-17.35,71.13.8,5.49,1.91,10.93,3.62,16.22t.04-.02s0,.02.02.04c13.68-4.45,26.22-11.95,36.74-21.86,11.49-10.82,20.58-24.55,25.81-40.62,6.61-20.36,6.18-41.34-.09-60.25h0c-19,6.03-36.22,18.02-48.8,35.35ZM930.12,426.35s-23.21-45.09,10.47-77.21c21.08,3.1,43.31-3.38,59.62-19.54,10.97-10.89,17.63-24.51,19.87-38.71-14.18-2.32-29.21-.37-43.03,6.59-20.62,10.39-33.88,29.65-37.54,50.81-40.82,21.71-76.32-14.08-76.32-14.08-.04,19.78,6.01,39.73,18.5,56.93,12.51,17.22,29.6,29.13,48.43,35.2ZM710.99,267.12c20.23,6.57,41.08,6.16,59.86,0,0,0-45.28-22.84-36.91-68.62,18.89-9.89,33.05-28.19,36.74-50.86,2.49-15.27-.13-30.19-6.68-43.01-12.84,6.44-23.86,16.87-30.95,30.62-10.58,20.54-9.98,43.92-.5,63.18-20.26,41.55-70.01,33.46-70.01,33.46,11.6,16.07,28.22,28.65,48.45,35.22ZM792.51,147.38c6.33,2.06,13.14-1.41,15.2-7.74,2.06-6.33-1.41-13.14-7.74-15.2-6.33-2.06-13.14,1.41-15.2,7.74-2.06,6.35,1.41,13.14,7.74,15.2ZM920.71,226.93c5.38,3.93,12.93,2.71,16.85-2.67,3.93-5.4,2.71-12.93-2.67-16.85s-12.93-2.71-16.85,2.67c-3.93,5.4-2.73,12.93,2.67,16.85ZM903.21,255.32c-21.38,15.53-34.42,38.21-38.5,62.35-.93,5.44-1.56,10.95-1.56,16.5h.04v.04c14.44,0,28.74-3.27,41.84-9.5,14.23-6.74,27.04-16.96,36.96-30.6,12.58-17.33,18.65-37.41,18.54-57.32h0c-19.91-.13-39.99,5.94-57.32,18.52ZM806.18,315.61c17.22,12.51,37.15,18.56,56.93,18.5,0,0-36-35.7-13.9-76.67,21.01-3.58,40.14-16.59,50.66-37.02,7.07-13.75,9.2-28.76,6.94-42.96-14.21,2.17-27.89,8.7-38.89,19.56-16.42,16.27-23.05,38.67-20,59.94-32.1,33.27-76.93,10.19-76.93,10.19,6.05,18.85,17.96,35.96,35.18,48.45ZM855.12,179.29c5.38,3.93,12.93,2.73,16.85-2.67,3.93-5.38,2.71-12.93-2.67-16.85s-12.93-2.71-16.85,2.67c-3.93,5.38-2.73,12.93,2.67,16.85ZM662.52,951.71l-.02.02s-.02-.02-.04-.02c-8.52,11.69-14.31,25.22-16.98,39.51-2.88,15.44-2.08,31.79,3.1,47.8,6.61,20.36,19.3,37.09,35.48,48.69h0c11.8-16.05,18.69-35.87,18.69-57.28,0-26.39-10.67-50.27-27.76-67.75-3.88-3.95-7.98-7.7-12.47-10.97ZM786.16,923.08c-4.9-2.58-9.95-4.88-15.22-6.59v.04s-.02-.02-.04-.02c-4.49,13.75-5.77,28.41-3.88,42.83,2.04,15.57,7.79,30.88,17.68,44.5,12.58,17.33,29.82,29.3,48.77,35.35h0c6.27-18.91,6.7-39.88.09-60.25-8.18-25.14-25.7-44.55-47.39-55.87ZM920.73,956.69c-5.38,3.93-6.59,11.45-2.67,16.85s11.45,6.59,16.85,2.67c5.4-3.93,6.59-11.45,2.67-16.85-3.93-5.38-11.47-6.57-16.85-2.67ZM646.06,1072.29c-6.66,0-12.06,5.4-12.06,12.06s5.4,12.06,12.06,12.06,12.06-5.4,12.06-12.06-5.4-12.06-12.06-12.06ZM771,916.44s45.09-23.21,77.21,10.47c-3.1,21.08,3.38,43.31,19.54,59.62,10.89,10.97,24.51,17.65,38.71,19.87,2.32-14.18.37-29.21-6.59-43.03-10.39-20.62-29.65-33.88-50.81-37.54-21.71-40.82,14.08-76.32,14.08-76.32-19.78-.04-39.71,6.01-56.93,18.5-17.22,12.51-29.15,29.6-35.2,48.43ZM711.01,916.51c-20.23,6.57-36.85,19.15-48.43,35.18,0,0,50.05-8.13,70.18,33.81-9.46,19.11-10.17,42.23.17,62.74,6.96,13.81,17.85,24.35,30.69,30.86,6.59-12.77,9.37-27.67,7.03-42.96-3.51-22.84-17.74-41.38-36.74-51.4-8.05-45.52,36.98-68.23,36.98-68.23-18.8-6.16-39.64-6.57-59.88,0ZM879.67,851.03c-5.47-.93-10.97-1.56-16.5-1.56v.04h-.04c0,14.4,3.25,28.67,9.46,41.77,6.74,14.25,16.98,27.11,30.64,37.04,17.33,12.58,37.41,18.65,57.32,18.54h0c.11-19.91-5.96-39.99-18.54-57.32-15.53-21.41-38.21-34.44-62.33-38.52ZM715.44,1061.29c-6.33,2.06-9.8,8.87-7.74,15.2,2.06,6.33,8.87,9.8,15.2,7.74s9.8-8.87,7.74-15.2c-2.06-6.33-8.87-9.8-15.2-7.74ZM548.57,951.71s50.12,7.72,56.3,53.85c-14.9,15.25-22.73,37.02-19.24,59.73,2.36,15.29,9.46,28.67,19.65,38.84,10.21-10.11,17.46-23.42,19.95-38.69,3.73-22.79-4.08-44.85-19.04-60.25,6.42-45.78,56.24-53.46,56.24-53.46-15.98-11.67-35.65-18.5-56.93-18.5-21.25,0-40.95,6.81-56.93,18.48ZM792.53,1036.24c-6.33,2.06-9.8,8.87-7.74,15.2s8.87,9.8,15.2,7.74c6.33-2.06,9.8-8.87,7.74-15.2-2.06-6.33-8.87-9.8-15.2-7.74ZM855.15,1004.34c-5.4,3.93-6.59,11.45-2.67,16.85,3.93,5.4,11.45,6.59,16.85,2.67,5.38-3.93,6.59-11.45,2.67-16.85-3.93-5.38-11.47-6.57-16.85-2.67ZM1052.72,634.87c-25.57-8.31-52.11-5.4-74.28,5.96-4.55,2.32-8.91,4.97-13.06,7.98l.02.02s-.02.02-.04.02c8.57,11.82,19.78,21.56,32.7,28.52,13.71,7.4,29.39,11.65,46.06,11.65,21.41,0,41.23-6.9,57.28-18.69h0c-11.6-16.16-28.32-28.84-48.69-35.46ZM930.21,697.31c-6.57,20.23-6.16,41.08,0,59.86,0,0,22.84-45.28,68.62-36.91,9.89,18.89,28.19,33.05,50.86,36.74,15.27,2.49,30.19-.13,43.01-6.68-6.44-12.84-16.87-23.86-30.62-30.95-20.54-10.58-43.92-9.98-63.18-.5-41.55-20.26-33.46-70.01-33.46-70.01-16.07,11.6-28.65,28.22-35.22,48.45ZM1098.05,620.28c-6.66,0-12.06,5.4-12.06,12.06s5.4,12.06,12.06,12.06,12.06-5.4,12.06-12.06c0-6.66-5.4-12.06-12.06-12.06ZM1090.19,693.99c-6.33-2.06-13.14,1.41-15.2,7.74s1.41,13.14,7.74,15.2c6.33,2.06,13.14-1.41,15.2-7.74,2.06-6.33-1.41-13.14-7.74-15.2ZM1017.54,770.96c-21.38-15.55-47.02-20.93-71.24-17.35-5.47.8-10.87,1.91-16.11,3.62t.02.04s-.02,0-.04.02c4.45,13.71,11.97,26.26,21.9,36.78,10.82,11.47,24.53,20.54,40.6,25.76,20.36,6.61,41.34,6.18,60.25-.09h0c-6.07-18.98-18.07-36.2-35.37-48.8ZM1034.89,838.78c-5.4-3.93-12.93-2.71-16.85,2.67-3.93,5.38-2.71,12.93,2.67,16.85,5.4,3.93,12.93,2.71,16.85-2.67,3.93-5.4,2.73-12.95-2.67-16.85ZM881.71,792.48c-12.51,17.22-18.56,37.15-18.5,56.93,0,0,35.7-36,76.66-13.9,3.58,21.02,16.59,40.14,37.02,50.66,13.75,7.07,28.76,9.2,42.96,6.94-2.17-14.21-8.7-27.89-19.56-38.89-16.27-16.42-38.67-23.05-59.94-20-33.27-32.1-10.19-76.93-10.19-76.93-18.85,6.05-35.94,17.98-48.45,35.18ZM987.24,904.36c-5.4-3.93-12.93-2.71-16.85,2.67-3.93,5.4-2.71,12.93,2.67,16.85,5.4,3.93,12.93,2.71,16.85-2.67,3.93-5.4,2.73-12.95-2.67-16.85ZM1065.15,771.09c-6.33-2.06-13.14,1.41-15.2,7.74-2.06,6.33,1.41,13.14,7.74,15.2,6.33,2.06,13.14-1.41,15.2-7.74,2.06-6.33-1.41-13.14-7.74-15.2ZM307.8,928.33c21.41-15.55,34.46-38.28,38.52-62.44.91-5.42,1.54-10.89,1.54-16.42h-.04v-.04c-14.57,0-29.04,3.32-42.25,9.67-14.08,6.74-26.74,16.92-36.54,30.43-12.58,17.33-18.65,37.41-18.54,57.32h0c19.91.13,40.01-5.94,57.32-18.52ZM192.99,841.45c-3.93-5.4-11.45-6.59-16.85-2.67s-6.59,11.45-2.67,16.85,11.45,6.59,16.85,2.67c5.38-3.9,6.57-11.45,2.67-16.85ZM280.82,697.33c-6.57-20.23-19.15-36.85-35.18-48.43,0,0,8.13,50.05-33.81,70.18-19.11-9.46-42.23-10.17-62.74.17-13.81,6.96-24.35,17.85-30.86,30.69,12.77,6.59,27.67,9.37,42.96,7.03,22.84-3.51,41.38-17.74,51.4-36.74,45.52-8.05,68.23,36.98,68.23,36.98,6.16-18.82,6.57-39.64,0-59.88ZM218.38,819.87c25.11-8.15,44.52-25.7,55.87-47.39,2.58-4.9,4.88-9.95,6.59-15.22h-.04s.02-.02.02-.04c-13.75-4.49-28.41-5.77-42.83-3.88-15.57,2.04-30.9,7.79-44.5,17.68-17.33,12.58-29.3,29.82-35.35,48.77h0c18.91,6.27,39.9,6.7,60.25.09ZM223.78,904.36c-5.4,3.93-6.59,11.45-2.67,16.85s11.45,6.59,16.85,2.67c5.4-3.93,6.59-11.45,2.67-16.85-3.93-5.38-11.47-6.57-16.85-2.67ZM280.88,757.3s23.21,45.09-10.48,77.21c-21.08-3.1-43.31,3.38-59.62,19.54-10.97,10.89-17.63,24.51-19.87,38.71,14.18,2.32,29.21.37,43.03-6.59,20.62-10.39,33.88-29.65,37.54-50.81,40.82-21.71,76.32,14.08,76.32,14.08.04-19.78-6.01-39.71-18.5-56.93-12.51-17.22-29.6-29.13-48.43-35.2ZM166.87,689.07c26.46,0,50.36-10.71,67.84-27.87,3.95-3.86,7.66-7.92,10.91-12.38l-.02-.02s.02-.02.02-.04c-11.75-8.57-25.37-14.38-39.75-17.02-15.38-2.84-31.64-2.02-47.58,3.14-20.36,6.61-37.09,19.3-48.69,35.48h0c16.05,11.82,35.87,18.72,57.28,18.72ZM245.62,534.89s-7.72,50.12-53.85,56.3c-15.25-14.9-37.02-22.73-59.73-19.24-15.29,2.36-28.67,9.46-38.84,19.65,10.11,10.21,23.42,17.46,38.69,19.95,22.79,3.73,44.85-4.08,60.25-19.04,45.78,6.42,53.46,56.24,53.46,56.24,11.67-15.98,18.5-35.65,18.5-56.93.02-21.28-6.81-40.95-18.48-56.93ZM128.29,716.96c6.33-2.06,9.8-8.87,7.74-15.2s-8.87-9.8-15.2-7.74c-6.33,2.06-9.8,8.87-7.74,15.2s8.87,9.8,15.2,7.74ZM161.08,778.86c-2.06-6.33-8.87-9.8-15.2-7.74-6.33,2.06-9.8,8.87-7.74,15.2s8.87,9.8,15.2,7.74c6.33-2.06,9.8-8.87,7.74-15.2ZM418.49,1036.26c-6.33-2.06-13.14,1.41-15.2,7.74s1.41,13.14,7.74,15.2,13.14-1.41,15.2-7.74c2.06-6.35-1.41-13.14-7.74-15.2ZM495.59,1061.31c-6.33-2.06-13.14,1.41-15.2,7.74-2.06,6.33,1.41,13.14,7.74,15.2,6.33,2.06,13.14-1.41,15.2-7.74,2.06-6.35-1.41-13.14-7.74-15.2ZM564.99,1072.29c-6.66,0-12.06,5.4-12.06,12.06s5.4,12.06,12.06,12.06,12.06-5.4,12.06-12.06-5.4-12.06-12.06-12.06ZM500.01,916.51c-20.23-6.57-41.08-6.16-59.86,0,0,0,45.28,22.84,36.91,68.62-18.89,9.89-33.05,28.19-36.74,50.86-2.49,15.27.13,30.19,6.68,43.01,12.84-6.44,23.86-16.87,30.95-30.62,10.58-20.54,9.98-43.92.5-63.18,20.26-41.55,70.01-33.46,70.01-33.46-11.6-16.07-28.22-28.63-48.45-35.22ZM556.51,964.78c-2.32-4.55-4.97-8.94-7.98-13.08l-.02.02s-.02-.02-.02-.04c-11.71,8.5-21.38,19.58-28.32,32.38-7.53,13.79-11.86,29.58-11.86,46.39,0,21.41,6.9,41.23,18.69,57.28h0c16.18-11.6,28.87-28.32,35.48-48.69,8.28-25.57,5.38-52.09-5.96-74.26ZM290.32,956.72c-5.4-3.93-12.93-2.71-16.85,2.67-3.93,5.4-2.71,12.93,2.67,16.85,5.4,3.93,12.93,2.71,16.85-2.67,3.9-5.4,2.71-12.95-2.67-16.85ZM426.36,1003.84c15.51-21.36,20.91-46.93,17.35-71.11-.8-5.49-1.91-10.95-3.62-16.24t-.04.02s0-.02-.02-.04c-13.77,4.47-26.42,12.04-36.98,22.06-11.39,10.8-20.39,24.44-25.57,40.43-6.61,20.36-6.18,41.34.09,60.25h0c18.98-6.05,36.2-18.02,48.8-35.35ZM355.9,1004.36c-5.38-3.93-12.93-2.71-16.85,2.67-3.93,5.4-2.71,12.93,2.67,16.85s12.93,2.71,16.85-2.67c3.9-5.4,2.71-12.93-2.67-16.85ZM125.04,632.36c0-6.66-5.4-12.06-12.06-12.06s-12.06,5.4-12.06,12.06,5.4,12.06,12.06,12.06,12.06-5.4,12.06-12.06ZM404.85,868.04c-17.22-12.51-37.15-18.56-56.93-18.5,0,0,36,35.7,13.9,76.67-21.02,3.58-40.14,16.59-50.66,37.02-7.07,13.75-9.2,28.76-6.94,42.96,14.21-2.17,27.89-8.7,38.89-19.56,16.42-16.27,23.05-38.67,20-59.94,32.1-33.27,76.93-10.19,76.93-10.19-6.05-18.87-17.96-35.96-35.18-48.45Z"/>
+                <path class="st0" fill="url(#linear-gradient1)" d="M706.42,785.93c.69,5.3,1.27,9.74,1.92,14.75-19-.71-32.77-10.07-45.03-24.92-.29,4.78-.46,7.76-.71,11.81-4.67-2.32-8.86-4.17-12.87-6.4-36.31-20.13-60.24-51.37-79.3-87.35-13.64-25.78-28.45-50.95-43.07-76.21-2.96-5.13-7.32-9.49-11.18-14.08-10.32-12.22-22.8-19.21-39.55-18.13-13.45.86-27.01.17-40.5.17-.58-.94-1.15-1.88-1.73-2.82,3.25-3.9,5.76-9.36,9.93-11.37,8.8-4.21,18.48-6.63,27.8-9.74,1.71-.56,3.92-.33,5.19-1.36,28.01-22.53,57.15-23.88,87.1-3.9.86.56,1.75,1.11,2.57,1.61,40.76-27.03,60.92-78.78,25.45-124.21-15.2-19.48-35.29-32.27-57.84-41.51-29.1-11.93-59.44-19.46-90.27-25.22-2.5-.46-4.96-1.11-7.36-2.36,58.4-5.97,116.74-11.1,174.31,5.57,8.7,2.52,17.21,6.22,25.2,10.51,19.44,10.43,28.51,22.17,35.62,45.05,2.59-4.84,4.69-8.8,7.01-13.16,19.52,20.19,25.11,43.15,16,70.96,5.28-3.17,9.09-5.46,13.45-8.09,5.88,25.97.31,48.43-18.02,68.56,5.21-.65,8.99-1.11,13.95-1.73-13.6,41.94-38.63,72.52-79.01,91.27,53.14,63.41,100.51,131.55,176.64,173.55-34.85,1.79-66.68-.86-95.69-21.25Z"/>
+            </svg>
+        </div>
+        <div class="loader-text">Loading your luxury experience...</div>
+        <div class="loader-progress">
+            <div class="loader-progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <!-- <a href="#" class="logo-text"> <span>Rahi Inn</span></a> -->
+                <img src="/Images/svg-01.svg" alt="logo" />
+            </div>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#rooms">Rooms</a></li>
+                <li><a href="#amenities">Amenities</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#" class="btn">Book Now</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-slideshow">
+            <div class="slide active"
+                style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=2070&q=80');">
+            </div>
+            <div class="slide"
+                style="background-image: url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=2070&q=80');">
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <h1>Experience Luxury & Comfort</h1>
+            <p>Discover the perfect blend of modern elegance and traditional hospitality at Hotel Rahi Inn</p>
+            <a href="#rooms" class="btn">Explore Our Rooms</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Hotel Rahi Inn</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Welcome to Hotel Rahi Inn, where luxury meets comfort in the heart of the city. Our hotel offers
+                        an unparalleled experience with world-class amenities and exceptional service.</p>
+                    <p>Established with a vision to redefine hospitality, Hotel Rahi Inn combines contemporary design
+                        with timeless elegance. Each space is thoughtfully designed to provide our guests with a
+                        memorable stay.</p>
+                    <p>Whether you're visiting for business or leisure, our dedicated team is committed to ensuring your
+                        stay is nothing short of perfect.</p>
+                    <a href="#contact" class="btn">Contact Us</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                        alt="Hotel Rahi Inn Lobby">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rooms Section -->
+    <section class="rooms" id="rooms">
+        <div class="container">
+            <h2 class="section-title">Our Rooms & Suites</h2>
+            <div class="rooms-grid">
+                <div class="room-card">
+                    <div class="room-image">
+                        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                            alt="Deluxe Room">
+                    </div>
+                    <div class="room-content">
+                        <h3>Deluxe Room</h3>
+                        <div class="room-price">$199/night</div>
+                        <p>Spacious and elegantly designed with modern amenities for a comfortable stay.</p>
+                        <ul class="room-features">
+                            <li><i class="fas fa-wifi"></i> Free High-Speed WiFi</li>
+                            <li><i class="fas fa-tv"></i> Smart TV</li>
+                            <li><i class="fas fa-coffee"></i> Coffee Maker</li>
+                            <li><i class="fas fa-snowflake"></i> Air Conditioning</li>
+                        </ul>
+                        <a href="#" class="btn">Book Now</a>
+                    </div>
+                </div>
+                <div class="room-card">
+                    <div class="room-image">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2058&q=80"
+                            alt="Executive Suite">
+                    </div>
+                    <div class="room-content">
+                        <h3>Executive Suite</h3>
+                        <div class="room-price">$299/night</div>
+                        <p>Luxurious suite with separate living area and premium amenities.</p>
+                        <ul class="room-features">
+                            <li><i class="fas fa-wifi"></i> Free High-Speed WiFi</li>
+                            <li><i class="fas fa-tv"></i> Smart TV</li>
+                            <li><i class="fas fa-utensils"></i> Mini Bar</li>
+                            <li><i class="fas fa-hot-tub"></i> Jacuzzi</li>
+                        </ul>
+                        <a href="#" class="btn">Book Now</a>
+                    </div>
+                </div>
+                <div class="room-card">
+                    <div class="room-image">
+                        <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                            alt="Presidential Suite">
+                    </div>
+                    <div class="room-content">
+                        <h3>Presidential Suite</h3>
+                        <div class="room-price">$499/night</div>
+                        <p>The ultimate luxury experience with panoramic views and exclusive services.</p>
+                        <ul class="room-features">
+                            <li><i class="fas fa-wifi"></i> Free High-Speed WiFi</li>
+                            <li><i class="fas fa-tv"></i> Smart TV</li>
+                            <li><i class="fas fa-utensils"></i> Private Dining</li>
+                            <li><i class="fas fa-concierge-bell"></i> Personal Butler</li>
+                        </ul>
+                        <a href="#" class="btn">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Amenities Section -->
+    <section class="amenities" id="amenities">
+        <div class="container">
+            <h2 class="section-title">Hotel Amenities</h2>
+            <div class="amenities-grid">
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <i class="fas fa-swimming-pool"></i>
+                    </div>
+                    <h3>Swimming Pool</h3>
+                    <p>Relax in our temperature-controlled infinity pool with stunning views.</p>
+                </div>
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <h3>Spa & Wellness</h3>
+                    <p>Rejuvenate your senses with our range of spa treatments and therapies.</p>
+                </div>
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3>Fitness Center</h3>
+                    <p>Stay active with our state-of-the-art fitness equipment and personal trainers.</p>
+                </div>
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Fine Dining</h3>
+                    <p>Experience culinary excellence at our award-winning restaurants.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2 class="section-title">Gallery</h2>
+            <div class="gallery-carousel">
+                <div class="gallery-item">
+                    <img src="https://fairdeal-staging.s3.ap-south-1.amazonaws.com/production/1759385917992-WhatsApp%20Image%202025-10-02%20at%2011.12.17%20AM.jpeg"
+                        alt="Restaurant">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://fairdeal-staging.s3.ap-south-1.amazonaws.com/production/1759385745664-WhatsApp%20Image%202025-10-02%20at%2011.12.21%20AM%20%282%29.jpeg"
+                        alt="Hotel Exterior">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://fairdeal-staging.s3.ap-south-1.amazonaws.com/production/1759386032568-WhatsApp%20Image%202025-10-02%20at%2011.12.15%20AM%20%282%29.jpeg"
+                        alt="Hotel Exterior">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://fairdeal-staging.s3.ap-south-1.amazonaws.com/production/1759386061846-WhatsApp%20Image%202025-10-02%20at%2011.12.21%20AM%20%282%29.jpeg"
+                        alt="Hotel Exterior">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://fairdeal-staging.s3.ap-south-1.amazonaws.com/production/1759385799344-WhatsApp%20Image%202025-10-02%20at%2011.12.12%20AM.jpeg"
+                        alt="Hotel Exterior">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://fairdeal-staging.s3.ap-south-1.amazonaws.com/production/1759385821217-WhatsApp%20Image%202025-10-02%20at%2011.12.14%20AM%20%281%29.jpeg"
+                        alt="Lobby">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://fairdeal-staging.s3.ap-south-1.amazonaws.com/production/1759386091728-WhatsApp%20Image%202025-10-02%20at%2011.12.20%20AM%20%281%29.jpeg"
+                        alt="Lobby">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://fairdeal-staging.s3.ap-south-1.amazonaws.com/production/1759385840533-WhatsApp%20Image%202025-10-02%20at%2011.12.15%20AM%20%281%29.jpeg"
+                        alt="Lobby">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://fairdeal-staging.s3.ap-south-1.amazonaws.com/production/1759385863798-WhatsApp%20Image%202025-10-02%20at%2011.12.15%20AM.jpeg"
+                        alt="Pool Area">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://fairdeal-staging.s3.ap-south-1.amazonaws.com/production/1759385897737-WhatsApp%20Image%202025-10-02%20at%2011.12.18%20AM.jpeg"
+                        alt="Pool Area">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://fairdeal-staging.s3.ap-south-1.amazonaws.com/production/1759385970089-WhatsApp%20Image%202025-10-02%20at%2011.12.20%20AM.jpeg"
+                        alt="Pool Area">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+   <!-- Enhanced Nearby Treasures Section -->
+    <section class="nearby" id="nearby">
+        <div class="container">
+            <h2 class="section-title">Nearby Treasures</h2>
+            <div class="nearby-grid">
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://hotelrahiiin.in/assets/images/mandvi.jpg" alt="Vande Mataram Memorial">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">2 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>Vande Mataram Memorial & Hiralaxmi Craft Park</h3>
+                        <p class="nearby-card-description">A beautiful memorial dedicated to the national song of India, surrounded by a craft park showcasing local artisans' work.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Cultural</span>
+                            <span class="nearby-card-feature">Park</span>
+                            <span class="nearby-card-feature">Memorial</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://images.unsplash.com/photo-1597047084897-51e81819a499?auto=format&fit=crop&w=800&q=80" alt="Bhujodi Handicraft Village">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">2 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>Bhujodi Handicraft Village</h3>
+                        <p class="nearby-card-description">A vibrant village famous for its traditional handicrafts, textiles, and authentic Kutch embroidery.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Shopping</span>
+                            <span class="nearby-card-feature">Cultural</span>
+                            <span class="nearby-card-feature">Handicrafts</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://images.unsplash.com/photo-1594736797933-d0d69c3d15d5?auto=format&fit=crop&w=800&q=80" alt="Aina Mahal">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">8 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>Aina Mahal (Hall of Mirrors)</h3>
+                        <p class="nearby-card-description">An 18th-century palace known for its exquisite mirror work, Venetian glass, and stunning architecture.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Historical</span>
+                            <span class="nearby-card-feature">Palace</span>
+                            <span class="nearby-card-feature">Architecture</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://images.unsplash.com/photo-1597047084897-51e81819a499?auto=format&fit=crop&w=800&q=80" alt="Prag Mahal">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">8 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>Prag Mahal</h3>
+                        <p class="nearby-card-description">An Italian Gothic-style palace built in the 19th century, featuring grand halls and impressive architecture.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Historical</span>
+                            <span class="nearby-card-feature">Palace</span>
+                            <span class="nearby-card-feature">Architecture</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://images.unsplash.com/photo-1594736797933-d0d69c3d15d5?auto=format&fit=crop&w=800&q=80" alt="Kutch Museum">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">8 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>Kutch Museum</h3>
+                        <p class="nearby-card-description">The oldest museum in Gujarat, showcasing Kutch's history, archaeology, and cultural heritage.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Museum</span>
+                            <span class="nearby-card-feature">Historical</span>
+                            <span class="nearby-card-feature">Cultural</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://images.unsplash.com/photo-1597047084897-51e81819a499?auto=format&fit=crop&w=800&q=80" alt="Hamirsar Lake">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">8 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>Hamirsar Lake</h3>
+                        <p class="nearby-card-description">A picturesque man-made lake in the heart of Bhuj, perfect for evening walks and relaxation.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Lake</span>
+                            <span class="nearby-card-feature">Relaxation</span>
+                            <span class="nearby-card-feature">Scenic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://images.unsplash.com/photo-1594736797933-d0d69c3d15d5?auto=format&fit=crop&w=800&q=80" alt="Swaminarayan Temple">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">9 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>Swaminarayan Temple, Bhuj</h3>
+                        <p class="nearby-card-description">A beautiful and serene temple dedicated to Lord Swaminarayan, known for its peaceful atmosphere.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Temple</span>
+                            <span class="nearby-card-feature">Spiritual</span>
+                            <span class="nearby-card-feature">Architecture</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://images.unsplash.com/photo-1597047084897-51e81819a499?auto=format&fit=crop&w=800&q=80" alt="Bhartiya Sanskruti Darshan Museum">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">9 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>Bhartiya Sanskruti Darshan Museum</h3>
+                        <p class="nearby-card-description">A cultural museum displaying artifacts and exhibits that showcase India's rich heritage and traditions.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Museum</span>
+                            <span class="nearby-card-feature">Cultural</span>
+                            <span class="nearby-card-feature">Heritage</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://images.unsplash.com/photo-1594736797933-d0d69c3d15d5?auto=format&fit=crop&w=800&q=80" alt="Chattardi">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">10 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>Chattardi (Cenotaphs)</h3>
+                        <p class="nearby-card-description">Memorial structures built in memory of the rulers of Kutch, showcasing intricate stone carvings.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Historical</span>
+                            <span class="nearby-card-feature">Architecture</span>
+                            <span class="nearby-card-feature">Memorial</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://images.unsplash.com/photo-1597047084897-51e81819a499?auto=format&fit=crop&w=800&q=80" alt="Smritivan Earthquake Memorial">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">12 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>Smritivan Earthquake Memorial & Museum</h3>
+                        <p class="nearby-card-description">A memorial dedicated to the victims of the 2001 Gujarat earthquake, set amidst a beautiful forest.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Memorial</span>
+                            <span class="nearby-card-feature">Museum</span>
+                            <span class="nearby-card-feature">Historical</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://images.unsplash.com/photo-1594736797933-d0d69c3d15d5?auto=format&fit=crop&w=800&q=80" alt="Bhujiya Hill & Fort">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">12 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>Bhujiya Hill & Bhujiya Fort</h3>
+                        <p class="nearby-card-description">A historic fort situated on a hill offering panoramic views of Bhuj and the surrounding landscape.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Fort</span>
+                            <span class="nearby-card-feature">Historical</span>
+                            <span class="nearby-card-feature">Viewpoint</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://images.unsplash.com/photo-1597047084897-51e81819a499?auto=format&fit=crop&w=800&q=80" alt="Hill Garden">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">12 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>Hill Garden (Bhujiyo Dungar Park)</h3>
+                        <p class="nearby-card-description">A beautiful garden park on the hill offering recreational activities and scenic views of the city.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Park</span>
+                            <span class="nearby-card-feature">Garden</span>
+                            <span class="nearby-card-feature">Viewpoint</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://images.unsplash.com/photo-1594736797933-d0d69c3d15d5?auto=format&fit=crop&w=800&q=80" alt="Kutch Fossil Park">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">18 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>Kutch Fossil Park</h3>
+                        <p class="nearby-card-description">A unique park showcasing fossils dating back millions of years, offering insights into prehistoric life.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Fossils</span>
+                            <span class="nearby-card-feature">Educational</span>
+                            <span class="nearby-card-feature">Geological</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://images.unsplash.com/photo-1597047084897-51e81819a499?auto=format&fit=crop&w=800&q=80" alt="Kranti Tirth Memorial">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">45 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>Kranti Tirth Memorial (Shyamji Krishna Varma Memorial)</h3>
+                        <p class="nearby-card-description">A memorial dedicated to Indian freedom fighter Shyamji Krishna Varma, set in a peaceful environment.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Memorial</span>
+                            <span class="nearby-card-feature">Historical</span>
+                            <span class="nearby-card-feature">Freedom Fighter</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://images.unsplash.com/photo-1594736797933-d0d69c3d15d5?auto=format&fit=crop&w=800&q=80" alt="Mandvi Beach">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">58 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>Mandvi Beach</h3>
+                        <p class="nearby-card-description">A beautiful and serene beach known for its clean sands, camel rides, and water sports activities.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Beach</span>
+                            <span class="nearby-card-feature">Relaxation</span>
+                            <span class="nearby-card-feature">Water Sports</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://images.unsplash.com/photo-1597047084897-51e81819a499?auto=format&fit=crop&w=800&q=80" alt="Vijay Vilas Palace">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">60 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>Vijay Vilas Palace (Mandvi)</h3>
+                        <p class="nearby-card-description">A stunning palace known for its architecture and as a filming location for Bollywood movies.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Palace</span>
+                            <span class="nearby-card-feature">Architecture</span>
+                            <span class="nearby-card-feature">Historical</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://images.unsplash.com/photo-1594736797933-d0d69c3d15d5?auto=format&fit=crop&w=800&q=80" alt="White Rann of Kutch">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">~ 75 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>White Rann of Kutch (Dhordo)</h3>
+                        <p class="nearby-card-description">The famous salt desert that transforms into a magical white landscape, especially during the Rann Utsav.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Desert</span>
+                            <span class="nearby-card-feature">Natural Wonder</span>
+                            <span class="nearby-card-feature">Photography</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nearby-card">
+                    <div class="nearby-card-image">
+                        <img src="https://images.unsplash.com/photo-1597047084897-51e81819a499?auto=format&fit=crop&w=800&q=80" alt="Kala Dungar">
+                        <div class="nearby-card-overlay">
+                            <div class="nearby-card-distance">~ 90 km</div>
+                        </div>
+                    </div>
+                    <div class="nearby-card-content">
+                        <h3>Kala Dungar (Black Hill)</h3>
+                        <p class="nearby-card-description">The highest point in Kutch offering breathtaking views of the Great Rann and the surrounding area.</p>
+                        <div class="nearby-card-features">
+                            <span class="nearby-card-feature">Hill</span>
+                            <span class="nearby-card-feature">Viewpoint</span>
+                            <span class="nearby-card-feature">Natural</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h3>Location</h3>
+                            <p> Opposite Vandemataram Park,<br> Bhujodi Road,Bhuj-Kutch, Gujarat</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>info@hotelRahi Inn.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h3>Reception Hours</h3>
+                            <p>24/7</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" id="name"  required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Subject" id="subject">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Your Message" id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Hotel Rahi Inn</h3>
+                    <p>Experience luxury and comfort at its finest. Our commitment is to provide exceptional service and
+                        create memorable experiences for our guests.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#rooms">Rooms & Suites</a></li>
+                        <li><a href="#amenities">Amenities</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://www.google.com/maps?q=23.2222,69.6667" target="_blank"><i class="fas fa-map-marker-alt"></i> Opposite Vandemataram Park, Bhujodi Road,Bhuj-Kutch, Gujaratr</li></a>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@hotelRahi Inn.com</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <!-- <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for special offers and updates.</p>
+                    <form class="newsletter-form">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form> -->
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Hotel Rahi Inn. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Loader functionality
+        const loader = document.getElementById('loader');
+        const loaderLogo = document.querySelector('.loader-logo');
+        const progressBar = document.querySelector('.loader-progress-bar');
+        
+        // Interactive animations for the loader logo
+        loaderLogo.addEventListener('mouseenter', () => {
+            loaderLogo.classList.remove('pulse');
+            loaderLogo.classList.add('glow');
+        });
+        
+        loaderLogo.addEventListener('mouseleave', () => {
+            loaderLogo.classList.remove('glow');
+            loaderLogo.classList.add('pulse');
+        });
+        
+        loaderLogo.addEventListener('click', () => {
+            loaderLogo.classList.toggle('rotate');
+        });
+        
+        // Simulate loading progress
+        let progress = 0;
+        const progressInterval = setInterval(() => {
+            progress += Math.random() * 10;
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(progressInterval);
+                
+                // Hide loader after a short delay
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                }, 500);
+            }
+            progressBar.style.width = `${progress}%`;
+        }, 200);
+
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.querySelector('i').classList.toggle('fa-bars');
+            hamburger.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.querySelector('i').classList.add('fa-bars');
+                hamburger.querySelector('i').classList.remove('fa-times');
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.room-card, .amenity-card, .about-image').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Sticky header on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.padding = '10px 0';
+                header.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                header.style.padding = '15px 0';
+                header.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+            }
+        });
+        
+        // Hero slideshow
+        let slides = document.querySelectorAll(".hero-slideshow .slide");
+        let currentSlide = 0;
+
+        function changeSlide() {
+            slides[currentSlide].classList.remove("active");
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add("active");
+        }
+
+        setInterval(changeSlide, 5000);
+
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            console.log("name", name)
+            
+            // Encode message properly
+            const whatsappMessage = encodeURIComponent(
+                `New Contact Form Submission\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`
+            );
+
+            const phoneNumber = '919925318825'; // India number format
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
+
+            window.open(whatsappURL, '_blank'); // Open WhatsApp
+ 
+            
+            // Redirect to WhatsApp after a short delay
+            setTimeout(() => {
+                window.open(whatsappURL, '_blank');
+                // Reset form
+                document.getElementById('contactForm').reset();
+                // Hide the info message after redirect
+                setTimeout(() => {
+                    whatsappInfo.classList.remove('show');
+                }, 3000);
+            }, 1500);
+        });
+    </script>
+</body>
+
+</html>
